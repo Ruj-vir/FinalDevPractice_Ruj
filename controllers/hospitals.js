@@ -118,18 +118,21 @@ exports.createHospital = async (req, res, next) => {
 //@route    PUT /api/v1/hospitals/:id
 //@access    Private
 exports.updateHospital = async (req, res, next) => {
+  console.log('start update');
+
     try {
       const hospital = await Hospital.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
       });
-  
+      console.log('query item', hospital);
       if (!hospital) {
         res.status(400).json({success: false,});
       }
   
       res.status(200).json({success: true,data: hospital,});
     } catch (err) {
+      console.log(err.message)
       res.status(400).json({success: false,});
     }
   };
